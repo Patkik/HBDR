@@ -4,6 +4,7 @@
 
 import { delay, random, clamp, pick, createElement, isMobile } from '../utils/helpers.js';
 import { ParticleSystem } from '../animations/particles.js';
+import { playLaugh } from '../utils/audio.js';
 
 const TAUNTS = [
   "Too slow! 😜",
@@ -90,6 +91,9 @@ export function initIntro(container, onNavigate) {
     attempts++;
     attemptCounter.textContent = `Attempts: ${attempts}`;
     attemptCounter.classList.add('visible');
+
+    // Play laugh SFX on dodge
+    playLaugh();
 
     // Update button text periodically
     if (attempts % 3 === 0 && btnTextIndex < BTN_TEXTS.length - 1) {

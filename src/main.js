@@ -10,6 +10,7 @@ import './styles/cake.css';
 import { initIntro } from './pages/intro.js';
 import { initMessage } from './pages/message.js';
 import { initCake } from './pages/cake.js';
+import { initAutoplay, playBdaySong, play3rdPageSong } from './utils/audio.js';
 
 // Page state
 let currentPage = 0;
@@ -25,6 +26,9 @@ function init() {
 
   // Initialize page indicator (hidden initially)
   initPageIndicator();
+
+  // Initialize global audio manager for autoplay
+  initAutoplay();
 
   // Initialize all pages
   pageControllers.push(initIntro(pageElements[0], navigateTo));
@@ -73,6 +77,13 @@ function navigateTo(pageIndex) {
       maxVisitedPage = pageIndex;
     }
     updateIndicator();
+
+    // Audio page switching
+    if (pageIndex === 2) {
+      play3rdPageSong();
+    } else {
+      playBdaySong();
+    }
 
     // Show indicator after first navigation
     document.getElementById('page-indicator').classList.add('visible');

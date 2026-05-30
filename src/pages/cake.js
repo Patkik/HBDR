@@ -4,6 +4,7 @@
 
 import { delay, random, createElement } from '../utils/helpers.js';
 import { ConfettiSystem } from '../animations/confetti.js';
+import { playYipeee } from '../utils/audio.js';
 
 export function initCake(container, onNavigate) {
   let confetti = null;
@@ -145,7 +146,8 @@ export function initCake(container, onNavigate) {
 
     await delay(800);
 
-    // Launch confetti!
+    // Launch confetti & play SFX!
+    playYipeee();
     confetti = new ConfettiSystem(confettiCanvas);
     confetti.burst(200);
 
