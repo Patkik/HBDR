@@ -10,7 +10,7 @@ import './styles/cake.css';
 import { initIntro } from './pages/intro.js';
 import { initMessage } from './pages/message.js';
 import { initCake } from './pages/cake.js';
-import { initAutoplay, playBdaySong, play3rdPageSong } from './utils/audio.js';
+import { initAutoplay, playBdaySong, play3rdPageSong, toggleMusic } from './utils/audio.js';
 
 // Page state
 let currentPage = 0;
@@ -27,13 +27,43 @@ function init() {
   // Initialize page indicator (hidden initially)
   initPageIndicator();
 
+  // Create floating music toggle button
+  createMusicToggleButton();
+
   // Initialize global audio manager for autoplay
-  initAutoplay();
+  initAutoplay(updateToggleState);
 
   // Initialize all pages
   pageControllers.push(initIntro(pageElements[0], navigateTo));
   pageControllers.push(initMessage(pageElements[1], navigateTo));
   pageControllers.push(initCake(pageElements[2], navigateTo));
+}
+
+function createMusicToggleButton() {
+  const toggleBtn = document.createElement('button');
+  toggleBtn.className = 'music-toggle-btn';
+  toggleBtn.innerHTML = '🔇';
+  toggleBtn.title = 'Toggle Music';
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isPlaying = toggleMusic();
+    updateToggleState(isPlaying);
+  });
+
+  document.body.appendChild(toggleBtn);
+}
+
+function updateToggleState(isPlaying) {
+  const toggleBtn = document.querySelector('.music-toggle-btn');
+  if (!toggleBtn) return;
+  if (isPlaying) {
+    toggleBtn.classList.add('playing');
+    toggleBtn.innerHTML = '🎵';
+  } else {
+    toggleBtn.classList.remove('playing');
+    toggleBtn.innerHTML = '🔇';
+  }
 }
 
 function initPageIndicator() {
