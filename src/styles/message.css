@@ -1,0 +1,224 @@
+/* ═══════════════════════════════════════════════════
+   PAGE 2 — Message / Fantasy Flower Bloom
+   ═══════════════════════════════════════════════════ */
+
+#page-message {
+  background: radial-gradient(ellipse at center bottom,
+    #1a0a2e 0%,
+    #0d0520 40%,
+    #080318 100%
+  );
+}
+
+/* Flower bloom canvas */
+.bloom-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Ambient glow behind the flower */
+.bloom-ambient {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255, 107, 157, 0.15) 0%,
+    rgba(106, 13, 173, 0.1) 40%,
+    transparent 70%
+  );
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.bloom-ambient.visible {
+  opacity: 1;
+}
+
+/* Fireflies */
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--golden-glow);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+  z-index: 2;
+  opacity: 0;
+  animation: firefly-float 8s ease-in-out infinite;
+}
+
+@keyframes firefly-float {
+  0% { opacity: 0; transform: translate(0, 0); }
+  10% { opacity: 1; }
+  50% { transform: translate(var(--fx, 50px), var(--fy, -80px)); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--fx2, -30px), var(--fy2, -120px)); }
+}
+
+/* Message Container */
+.message-wrapper {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 700px;
+  padding: var(--space-lg);
+  opacity: 0;
+  transform: translateY(60px) scale(0.9);
+  transition: opacity 1.5s var(--ease-out-expo), transform 1.5s var(--ease-out-expo);
+}
+
+.message-wrapper.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.message-crown {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+.message-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  background: linear-gradient(135deg, var(--golden-glow), var(--rose-gold), var(--mystic-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+}
+
+.message-divider {
+  width: 80px;
+  height: 2px;
+  margin: 0 auto var(--space-lg);
+  background: linear-gradient(90deg, transparent, var(--golden-glow), transparent);
+  border: none;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 1s ease 0.5s, transform 1s var(--ease-out-expo) 0.5s;
+}
+
+.message-divider.visible {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.message-text {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  font-weight: 300;
+  line-height: 2;
+  color: rgba(240, 230, 255, 0.9);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transition: opacity 1.2s ease 1s;
+}
+
+.message-text.visible {
+  opacity: 1;
+}
+
+.message-text .highlight {
+  color: var(--golden-glow);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.message-text .heart {
+  color: var(--mystic-pink);
+  font-size: 1.2em;
+  display: inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+}
+
+/* Signature */
+.message-signature {
+  margin-top: var(--space-xl);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: var(--soft-lavender);
+  opacity: 0;
+  transition: opacity 1s ease 2s;
+}
+
+.message-signature.visible {
+  opacity: 1;
+}
+
+/* Continue arrow */
+.message-continue {
+  position: absolute;
+  z-index: 20;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease 3s;
+  cursor: pointer;
+}
+
+.message-continue.visible {
+  opacity: 1;
+}
+
+.message-continue .arrow {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--golden-glow);
+  animation: bounce-down 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Petal scatter */
+.petal {
+  position: absolute;
+  width: 12px;
+  height: 18px;
+  background: radial-gradient(ellipse, var(--petal-pink), rgba(255, 107, 157, 0.3));
+  border-radius: 50% 50% 50% 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .message-wrapper {
+    padding: var(--space-md);
+    max-width: 95%;
+  }
+
+  .message-crown {
+    font-size: 2.5rem;
+  }
+
+  .bloom-ambient {
+    width: 350px;
+    height: 350px;
+  }
+}

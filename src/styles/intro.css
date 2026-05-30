@@ -1,0 +1,322 @@
+/* ═══════════════════════════════════════════════════
+   PAGE 1 — Intro / Genshin-style cinematic
+   ═══════════════════════════════════════════════════ */
+
+#page-intro {
+  background: var(--gradient-mystic);
+}
+
+/* Star field */
+.intro-stars {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating particles canvas */
+.intro-particles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Light rays */
+.intro-light-rays {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(106, 13, 173, 0.08) 20deg,
+    transparent 40deg,
+    rgba(255, 215, 0, 0.05) 60deg,
+    transparent 80deg,
+    rgba(106, 13, 173, 0.08) 100deg,
+    transparent 120deg,
+    rgba(255, 215, 0, 0.05) 140deg,
+    transparent 160deg,
+    rgba(106, 13, 173, 0.08) 180deg,
+    transparent 200deg,
+    rgba(255, 215, 0, 0.05) 220deg,
+    transparent 240deg,
+    rgba(106, 13, 173, 0.08) 260deg,
+    transparent 280deg,
+    rgba(255, 215, 0, 0.05) 300deg,
+    transparent 320deg,
+    rgba(106, 13, 173, 0.08) 340deg,
+    transparent 360deg
+  );
+  animation: spin-slow 60s linear infinite;
+  opacity: 0;
+  transition: opacity 3s ease;
+  z-index: 1;
+}
+
+.intro-light-rays.visible {
+  opacity: 1;
+}
+
+/* Central orb */
+.intro-orb {
+  position: relative;
+  z-index: 10;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    rgba(255, 215, 0, 0.9),
+    rgba(255, 107, 157, 0.6),
+    rgba(106, 13, 173, 0.8),
+    rgba(45, 27, 105, 0.9)
+  );
+  box-shadow:
+    0 0 60px rgba(255, 215, 0, 0.4),
+    0 0 120px rgba(106, 13, 173, 0.3),
+    0 0 200px rgba(255, 107, 157, 0.2),
+    inset 0 0 40px rgba(255, 215, 0, 0.3);
+  animation: orb-pulse 4s ease-in-out infinite;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 1.5s var(--ease-out-expo), transform 1.5s var(--ease-spring);
+}
+
+.intro-orb.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.intro-orb.explode {
+  transform: scale(30);
+  opacity: 0;
+  transition: transform 1.5s var(--ease-out-expo), opacity 1.2s ease;
+}
+
+@keyframes orb-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 60px rgba(255, 215, 0, 0.4),
+      0 0 120px rgba(106, 13, 173, 0.3),
+      0 0 200px rgba(255, 107, 157, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 80px rgba(255, 215, 0, 0.6),
+      0 0 160px rgba(106, 13, 173, 0.5),
+      0 0 280px rgba(255, 107, 157, 0.3);
+    transform: scale(1.05);
+  }
+}
+
+/* Title */
+.intro-title-container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-top: var(--space-lg);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s var(--ease-out-expo) 0.5s, transform 1.2s var(--ease-out-expo) 0.5s;
+}
+
+.intro-title-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro-subtitle {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--soft-lavender);
+  margin-bottom: var(--space-sm);
+}
+
+.intro-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  background: var(--gradient-golden);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+.intro-year {
+  font-family: var(--font-ui);
+  font-weight: 200;
+  font-size: 1.1rem;
+  color: var(--rose-gold);
+  margin-top: var(--space-xs);
+  letter-spacing: 0.3em;
+}
+
+/* Ragebait Button */
+.ragebait-container {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 18%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.ragebait-container.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.ragebait-btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border: 2px solid var(--golden-glow);
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 157, 0.2));
+  color: var(--golden-glow);
+  letter-spacing: 0.1em;
+  position: absolute;
+  transition: transform 0.15s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.ragebait-btn:hover {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.ragebait-btn.caught {
+  animation: caught-shake 0.5s ease;
+  border-color: var(--mystic-pink);
+  color: var(--mystic-pink);
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(106, 13, 173, 0.3));
+}
+
+@keyframes caught-shake {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-5deg); }
+  40% { transform: rotate(5deg); }
+  60% { transform: rotate(-3deg); }
+  80% { transform: rotate(3deg); }
+}
+
+/* Ragebait taunt */
+.ragebait-taunt {
+  position: absolute;
+  z-index: 25;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--mystic-pink);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+}
+
+.ragebait-taunt.visible {
+  opacity: 1;
+  animation: taunt-float 1.5s ease forwards;
+}
+
+@keyframes taunt-float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-40px) scale(0.8); opacity: 0; }
+}
+
+/* Continue button (after ragebait) */
+.intro-continue-btn {
+  position: absolute;
+  z-index: 20;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s var(--ease-spring);
+  pointer-events: none;
+}
+
+.intro-continue-btn.visible {
+  opacity: 1;
+  pointer-events: all;
+  animation: continue-pulse-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes continue-pulse-glow {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow:
+      0 4px 15px rgba(106, 13, 173, 0.4),
+      0 0 30px rgba(255, 107, 157, 0.2);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.04);
+    box-shadow:
+      0 8px 25px rgba(106, 13, 173, 0.6),
+      0 0 50px rgba(255, 107, 157, 0.4),
+      0 0 20px rgba(255, 215, 0, 0.4);
+  }
+}
+
+
+/* Attempt counter */
+.attempt-counter {
+  position: absolute;
+  z-index: 25;
+  top: 10%;
+  right: 5%;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 0.75rem;
+  color: rgba(195, 177, 225, 0.6);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.attempt-counter.visible {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .intro-orb {
+    width: 130px;
+    height: 130px;
+  }
+
+  .ragebait-btn {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.85rem;
+  }
+
+  .attempt-counter {
+    top: 5%;
+    right: 5%;
+  }
+}
