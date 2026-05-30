@@ -72,8 +72,8 @@ function initPageIndicator() {
     const dot = document.createElement('div');
     dot.className = 'dot' + (i === 0 ? ' active' : '');
     dot.addEventListener('click', () => {
-      // Only allow going to visited pages or the next one
-      if (i <= maxVisitedPage) {
+      // Once navigation indicator is visible, the entire site is unlocked for free navigation
+      if (indicator.classList.contains('visible') || i <= maxVisitedPage) {
         navigateTo(i);
       }
     });
